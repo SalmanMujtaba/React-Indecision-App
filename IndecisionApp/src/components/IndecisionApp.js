@@ -5,25 +5,30 @@ import Options from './Options';
 import Action from './Action';
 
 export default class IndecisionApp extends React.Component {
-    constructor(props){
-        super(props);
-        this.removeAll = this.removeAll.bind(this);
-        this.handPick = this.handPick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.deleteSingleItem = this.deleteSingleItem.bind(this);
-        this.state = {
+    state = {
         options : []
-        };
-    }
-    deleteSingleItem(item){
+    };
+    //The constructor is not needed with the babel class transfor library. Instead the
+    //state became the class' property and the methods became arrow functions since 
+    // the arrow func does not bind the this 
+    
+    // constructor(props){
+    //     super(props);
+    //     this.removeAll = this.removeAll.bind(this);
+    //     ...
+        // this.state = {
+        // options : []
+        // };
+    // }
+    deleteSingleItem=(item)=>{
         this.setState((prevState)=>({
             options: prevState.options.filter((option)=> item!==option)
         }));
     }
-    removeAll(){
+    removeAll=()=>{
         this.setState(()=>({options:[]}));
     }
-    handleAddOption(option){
+    handleAddOption=(option)=>{
         if(!option){
             return "Enter valid value to add item"
         }
@@ -49,7 +54,7 @@ export default class IndecisionApp extends React.Component {
             localStorage.setItem('options',json);
         }
     }
-    handPick(){
+    handPick=()=>{
         alert(this.state.options[0]);
     }
     render() {
